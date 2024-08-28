@@ -9,14 +9,16 @@ Ce simple module permet d'exporter les données issues du site https://pf2e.path
 ## Utilisation
 
 Pour utiliser ce module il faut importer celui-ci via la commande Powershell :
-`Import-Module  -Name .\pf2ToScribeModule.psm1`
+
+```Import-Module  -Name .\pf2ToScribeModule.psm1```
 
 Ensuite, les commandes disponibles pourront être utilisée sans réimporter celui-ci.
 
 ## Fonctionnalités
 ### Actions
 Pour l'instant, seules les actions sont supportées via la commande :
-`Get-Actions -OutputFile ./out.txt`
+
+```Get-Actions -OutputFile ./out.txt```
 
 Par défaut, sans paramètres, toutes les actions sont exportées.
 Les paramètres suivants sont supportés :
