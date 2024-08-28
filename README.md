@@ -3,29 +3,30 @@
 
 ## Présentation
 
-Ce simple module permet d'exporter les données issues du site https://pf2e.pathfinder-fr.org vers le format supporté par https://scribe.pf2.tools.
-
+Ce simple module PowerShell permet d'exporter les données issues du site https://pf2e.pathfinder-fr.org vers le format supporté par https://scribe.pf2.tools. Il est né d'un besoin d'imprimer les éléments techniques des personnages de mes joueurs pour qu'ils puissent facilement s'y référer.
 
 ## Utilisation
 
-Pour utiliser ce module il faut importer celui-ci via la commande Powershell :
+Pour utiliser les commandes d'export, il faut dans un premier temps importer le module via la commande Powershell suivante :
 
 ```Import-Module  -Name .\pf2ToScribeModule.psm1```
 
-Ensuite, les commandes disponibles pourront être utilisée sans réimporter celui-ci.
-
 ## Fonctionnalités
 ### Actions
-Pour l'instant, seules les actions sont supportées via la commande :
+L'export des actions se fait via la commande suivante :
 
 ```Get-Actions -OutputFile ./out.txt```
 
-Par défaut, sans paramètres, toutes les actions sont exportées.
-Les paramètres suivants sont supportés :
+Par défaut, toutes les actions sont exportées si aucun filtre n'est spécifié.
+Les filtres sont les suivants :
 
-Ids
-: Pemet de chaîner des identifiants d'actions pour exporter uniquement celles-ci.
+Ids (`-Ids <string[]>`)
+: Permet de chaîner des identifiants d'actions pour exporter uniquement celles-ci.
 : Exemple : `Get-Actions -OutputFile ./out.txt -Ids 46pkhUrd57gTd4th, PZGE4lLJ8DHbGIUI`
+
+Ces identifiants se trouvent :
+- soit dans l'url du détail de l'action : par exemple, pour l'url suivante "https://pf2e.pathfinder-fr.org/actions/EHa0owz6mccnmSBf" l'ID est `EHa0owz6mccnmSBf`;
+- soit dans l'id source sur Foundry (onglet "Règles" > ID source) : par exemple "Compendium.pf2e.actionspf2e.Item.g8QrV39TmZfkbXgE", l'ID est `g8QrV39TmZfkbXgE`;
 
 ## Roadmap
 Je ferai évoluer le module dans le temps, mais la liste des ajouts futurs (non exhaustif, non ordonnés) :
