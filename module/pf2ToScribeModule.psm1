@@ -464,8 +464,25 @@ function FormatSpellsToScribe{
 }
 
 <# PUBLIC FUNCTION #>
+
+<#
+.SYNOPSIS
+    Exporte une ou plusieurs actions.
+.DESCRIPTION
+    Cette commande exporte une ou plusieurs actions vers un fichier de sortie pour être utilisé sur https://scribe.pf2.tools/.
+.PARAMETER OutputFile
+    Il s'agit du fichier qui contiendra les données formatées pour pf2 scribe tools.
+.PARAMETER Ids
+    Permet de chaîner des identifiants d'actions pour exporter uniquement celles-ci.
+.EXAMPLE
+    C:\PS> Get-Actions -OutputFile ./out.txt -Ids 46pkhUrd57gTd4th, PZGE4lLJ8DHbGIUI
+.NOTES
+    https://github.com/6e756e75/pf2-to-scribe
+#>
 function Get-Actions{
+    [CmdletBinding()]
     param(
+        [Parameter(Position = 0, Mandatory = $true, HelpMessage = "Il s'agit du fichier qui contiendra les données formattés pour pf2 scribe tools.")]
         [string]
         $OutputFile,
 
