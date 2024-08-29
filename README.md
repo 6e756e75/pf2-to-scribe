@@ -7,9 +7,8 @@ Ce simple module PowerShell permet d'exporter les données issues du site https:
 
 ## Utilisation
 
-Pour utiliser les commandes d'export, il faut dans un premier temps importer le module via la commande Powershell suivante :
-
-```Import-Module  -Name .\pf2ToScribeModule.psm1```
+Pour utiliser les commandes d'export, il faut simplement exécuter le fichier `Launch.bat`. Celui-ci va alors ouvrir un terminal PowerShell et charger le module nécessaire.
+À partir de là, il suffira d'entrer les commandes (voir ci-dessous) et exécuter celles-ci directement.
 
 ## Fonctionnalités
 ### Actions
