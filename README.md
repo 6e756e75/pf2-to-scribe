@@ -2,22 +2,36 @@
 # pf2-to-scribe
 
 ## Présentation
+Ce module PowerShell permet d'exporter les données issues du site https://pf2e.pathfinder-fr.org vers le format supporté par https://scribe.pf2.tools. Il est né d'un besoin d'imprimer les éléments techniques des personnages de mes joueurs pour qu'ils puissent facilement s'y référer.
 
-Ce simple module PowerShell permet d'exporter les données issues du site https://pf2e.pathfinder-fr.org vers le format supporté par https://scribe.pf2.tools. Il est né d'un besoin d'imprimer les éléments techniques des personnages de mes joueurs pour qu'ils puissent facilement s'y référer.
+## Installation
+1. Télécharger l'archive zip du projet depuis GitHub (Code > Download zip);
+2. Extraire ensuite ce zip dans un répertoire dedié;
+3. Entrer dans ce répertoire;
+4. Exécuter le script `Run.ps1` (clic-droit puis "Exécuter avec Powershell").
+
+Le module va alors se mettre à jour puis se charger.
+
+**Pour une utilisation ultérieure, il ne sera plus nécessaire de télécharger une nouvelle fois l'archive, le script `Run.ps1` se charge de récupérer le module à jour.**
 
 ## Utilisation
-
-Pour utiliser les commandes d'export, il faut simplement exécuter le fichier `Launch.bat`. Celui-ci va alors ouvrir un terminal PowerShell et charger le module nécessaire.
-À partir de là, il suffira d'entrer les commandes (voir ci-dessous) et exécuter celles-ci directement.
+Une fois le module chargé via le script `Run.ps1`, les commandes sont disponibles dans la console. À partir de là, il suffit de les saisirs (voir ci-dessous) et les exécuter (touche "Entrée").
 
 ## Fonctionnalités
+### Généralités
+Chaque commande expose le paramètre ci-dessous:
+
+OutputFile (`-OutputFile <string>`)
+: Le chemin vers le fichier dans lequel sera inscrit l'export.
+: Exemple : `Get-Actions -OutputFile C:\Users\simon\Bureau\export.txt`
+
 ### Actions
 L'export des actions se fait via la commande suivante :
 
 ```Get-Actions -OutputFile ./out.txt```
 
 Par défaut, toutes les actions sont exportées si aucun filtre n'est spécifié.
-Les filtres sont les suivants :
+Les filtres possibles sont les suivants :
 
 Ids (`-Ids <string[]>`)
 : Permet de chaîner des identifiants d'actions pour exporter uniquement celles-ci.
