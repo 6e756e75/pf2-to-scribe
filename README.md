@@ -12,7 +12,8 @@ Ce module PowerShell permet d'exporter les données issues du site https://pf2e.
 
 Le module va alors se mettre à jour puis se charger.
 
-**Pour une utilisation ultérieure, il ne sera plus nécessaire de télécharger une nouvelle fois l'archive, le script `Run.ps1` se charge de récupérer le module à jour.**
+> [!NOTE]
+> Pour une utilisation ultérieure, il ne sera plus nécessaire de télécharger une nouvelle fois l'archive, le script `Run.ps1` se charge de récupérer le module à jour.
 
 ## Utilisation
 Une fois le module chargé via le script `Run.ps1`, les commandes sont disponibles dans la console. À partir de là, il suffit de les saisirs (voir ci-dessous) et les exécuter (touche "Entrée").
@@ -21,21 +22,19 @@ Une fois le module chargé via le script `Run.ps1`, les commandes sont disponibl
 ### Généralités
 Chaque commande expose le paramètre ci-dessous:
 
-OutputFile (`-OutputFile <string>`)
-: Le chemin vers le fichier dans lequel sera inscrit l'export.
-: Exemple : `Get-Actions -OutputFile C:\Users\simon\Bureau\export.txt`
+- **OutputFile** (`-OutputFile <string>`) : le chemin vers le fichier dans lequel sera inscrit l'export. Exemple : `Get-Actions -OutputFile C:\Users\simon\Bureau\export.txt`
 
 ### Actions
 L'export des actions se fait via la commande suivante :
 
-```Get-Actions -OutputFile ./out.txt```
+```posh
+Get-Actions -OutputFile ./out.txt
+```
 
 Par défaut, toutes les actions sont exportées si aucun filtre n'est spécifié.
 Les filtres possibles sont les suivants :
 
-Ids (`-Ids <string[]>`)
-: Permet de chaîner des identifiants d'actions pour exporter uniquement celles-ci.
-: Exemple : `Get-Actions -OutputFile ./out.txt -Ids 46pkhUrd57gTd4th, PZGE4lLJ8DHbGIUI`
+- **Ids** (`-Ids <string[]>`) : Permet de chaîner des identifiants d'actions pour exporter uniquement celles-ci. Exemple : `Get-Actions -OutputFile ./out.txt -Ids 46pkhUrd57gTd4th, PZGE4lLJ8DHbGIUI`
 
 Ces identifiants se trouvent :
 - soit dans l'url du détail de l'action : par exemple, pour l'url suivante "https://pf2e.pathfinder-fr.org/actions/EHa0owz6mccnmSBf" l'ID est `EHa0owz6mccnmSBf`;
