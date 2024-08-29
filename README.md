@@ -54,7 +54,7 @@ Je ferai évoluer le module dans le temps, mais la liste des ajouts futurs (non 
 - [ ] Ajouter différents filtres sur les exports (traits, nom, etc.)
 
 ## Bugs et suggestions
-Si vous repérez une erreur ou si vous avez une suggestion, n'hésitez pas à me ping sur le [Discord](https://discord.gg/MYqudHH) (@Nunu) ou à ouvrir une *issue* directement sur GitHub.
+Si vous repérez une erreur ou si vous avez une suggestion, n'hésitez pas à me ping sur le [Discord](https://discord.gg/MYqudHH) (@Nunu) ou ouvrir une *issue* directement sur GitHub.
 
 ## Remerciements
 Je profite de cette "tribune" pour remercier tous ceux qui participent à faire vivre cette superbe communauté Pathfinder francophone, à la fois bienveillante, accueillante et dévouée : :heart: sur vous.
