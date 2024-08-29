@@ -40,6 +40,12 @@ Ces identifiants se trouvent :
 - soit dans l'url du détail de l'action : par exemple, pour l'url suivante "https://pf2e.pathfinder-fr.org/actions/EHa0owz6mccnmSBf" l'ID est `EHa0owz6mccnmSBf`;
 - soit dans l'id source sur Foundry (onglet "Règles" > ID source) : par exemple "Compendium.pf2e.actionspf2e.Item.g8QrV39TmZfkbXgE", l'ID est `g8QrV39TmZfkbXgE`;
 
+## Exemples
+Exporter les actions [Chercher](https://pf2e.pathfinder-fr.org/actions/BlAOM2X92SI6HMtJ) et [Aider](https://pf2e.pathfinder-fr.org/actions/HCl3pzVefiv9ZKQW) vers un fichier PJ_1.txt :
+```posh
+Get-Actions -OutputFile C:\Users\utilisateur\Desktop\PJ_1.txt -Ids BlAOM2X92SI6HMtJ, HCl3pzVefiv9ZKQW
+```
+
 ## Roadmap
 Je ferai évoluer le module dans le temps, mais la liste des ajouts futurs (non exhaustif, non ordonnés) :
 - [ ] Ajouter l'export des dons
