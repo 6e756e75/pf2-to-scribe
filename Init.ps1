@@ -1,6 +1,7 @@
 ﻿<# Script d'initialisation du module Powershell #>
+$ProgressPreference = 'SilentlyContinue'
 
-Write-Host "Installation du module..."
+Write-Host "Installation du module... " -NoNewline
 # S'assure de la cohérence du répertoire module/
 if (Test-Path -Path .\module) {
     Remove-Item -Path .\module -Recurse -Force
@@ -12,14 +13,16 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/6e756e75/pf2-to-scribe
 
 # Import du module
 Import-Module -Name .\module\pf2ToScribeModule.psm1
-Write-Host "Installation du module... OK"
+Write-Host "OK" -ForegroundColor Green
 
-Write-Host "Installation du répertoire des données..."
+Write-Host "Installation du répertoire des données... " -NoNewline
 # S'assure de l'existance du répertoire datas/
 if (-not (Test-Path -Path .\datas)){
     New-Item -Name .\datas -ItemType Directory | Out-Null
 }
-Write-Host "Installation du répertoire des données... OK"
+Write-Host "OK" -ForegroundColor Green
+
+$ProgressPreference = 'Continue'
 
 # Prêt !
 Write-Host `
