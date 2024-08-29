@@ -1,7 +1,7 @@
 ﻿<# Script d'initialisation du module Powershell #>
 $ProgressPreference = 'SilentlyContinue'
 
-Write-Host "Installation du module... " -NoNewline
+Write-Host "Chargement du module... " -NoNewline
 # S'assure de la cohérence du répertoire module/
 if (Test-Path -Path .\module) {
     Remove-Item -Path .\module -Recurse -Force
