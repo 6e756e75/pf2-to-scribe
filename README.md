@@ -16,7 +16,7 @@ Le module va alors se mettre à jour puis se charger.
 > Pour une utilisation ultérieure, il ne sera plus nécessaire de télécharger une nouvelle fois l'archive, le script `Run.ps1` se charge de récupérer le module à jour.
 
 ## Utilisation
-Une fois le module chargé via le script `Run.ps1`, les commandes sont disponibles dans la console. À partir de là, il suffit de les saisirs (voir ci-dessous) et les exécuter (touche "Entrée").
+Une fois le module chargé via le script `Run.ps1`, les commandes sont disponibles dans la console. À partir de là, il suffit de les saisir (voir ci-dessous) et les exécuter (touche "Entrée").
 
 ## Fonctionnalités
 ### Généralités
