@@ -173,10 +173,13 @@ function GetTraits {
 
 function ParseCheck{
     # $CheckAttribute == type:crafting|dc:36
-    param($CheckAttribute)
+    param(
+        [string]
+        $CheckAttribute
+    )
 
     # Impossible de déterminer le type => on sort
-    if (-not ($CheckAttribute -match "(?<=type:)(\w+)")){
+    if ($CheckAttribute.Contains(":") -and -not ($CheckAttribute -match "(?<=type:)(\w+)")){
         return
     }
 
@@ -327,6 +330,11 @@ function GetIncantationTime {
 function GetTranslatedProperties {
     param($item)
 
+    if (-not $item.translations.fr){
+        Write-Output ""
+        return
+    }
+
     $str = ""
     $item.translations.fr | Get-Member -MemberType NoteProperty | ForEach-Object {
         switch ($_.Name) {
@@ -405,6 +413,10 @@ function FormatDonsToScribe {
 
     foreach ($feat in $feats){
     
+        if (-not $feat.translations.fr.name){
+            continue
+        }
+
         if ($lvl -lt $feat.level) {
             $lvl = $feat.level
             $str += "`r`n#### Niveau $($feat.level) `r`n`r`n"
@@ -504,8 +516,24 @@ function Get-Actions{
     Set-Content -Path $OutputFile -Value (FormatActionsToScribe($actions)) -Encoding UTF8
 }
 
+<#
+.SYNOPSIS
+    Exporte une ou plusieurs dons.
+.DESCRIPTION
+    Cette commande exporte une ou plusieurs dons vers un fichier de sortie pour être utilisé sur https://scribe.pf2.tools/.
+.PARAMETER OutputFile
+    Il s'agit du fichier qui contiendra les données formatées pour pf2 scribe tools.
+.PARAMETER Ids
+    Permet de chaîner des identifiants de dons pour exporter uniquement ceux-ci.
+.EXAMPLE
+    C:\PS> Get-Dons -OutputFile ./out.txt -Ids CpjN7v1QN8TQFcvI
+.NOTES
+    https://github.com/6e756e75/pf2-to-scribe
+#>
 function Get-Dons {
+    [CmdletBinding()]
     param(
+        [Parameter(Position = 0, Mandatory = $true, HelpMessage = "Il s'agit du fichier qui contiendra les données formattés pour pf2 scribe tools.")]
         [string]
         $OutputFile,
 
@@ -513,7 +541,7 @@ function Get-Dons {
         $Ids
     )
 
-    $dons = (DownloadDons | ConvertFrom-Json)
+    $dons = ((DownloadDons | ConvertFrom-Json) | Select-Object -First 100)
 
     # Filtre par ID
     if ($Ids.Length -gt 0){
