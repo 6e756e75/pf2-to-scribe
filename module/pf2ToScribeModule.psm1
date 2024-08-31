@@ -579,5 +579,5 @@ function Get-Spells {
 }
 
 Export-ModuleMember -Function Get-Actions
-# Export-ModuleMember -Function Get-Dons
+Export-ModuleMember -Function Get-Dons
 # Export-ModuleMember -Function Get-Spells
