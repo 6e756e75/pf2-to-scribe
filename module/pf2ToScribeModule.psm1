@@ -541,7 +541,7 @@ function Get-Dons {
         $Ids
     )
 
-    $dons = ((DownloadDons | ConvertFrom-Json) | Select-Object -First 100)
+    $dons = (DownloadDons | ConvertFrom-Json)
 
     # Filtre par ID
     if ($Ids.Length -gt 0){
