@@ -406,10 +406,6 @@ function FormatDonsToScribe {
 
     foreach ($feat in $feats){
     
-        if (-not $feat.translations.fr.name){
-            continue
-        }
-
         if ($lvl -lt $feat.level) {
             $lvl = $feat.level
             $str += "`r`n#### Niveau $($feat.level) `r`n`r`n"
@@ -544,7 +540,7 @@ function Get-Dons {
         }
     }
 
-    $dons = ($dons | Sort-Object -Property level, translations.fr.name)
+    $dons = ($dons | Where-Object { $_.translations.fr.name } | Sort-Object -Property level, translations.fr.name)
     Set-Content -Path $OutputFile -Value (FormatDonsToScribe($dons)) -Encoding UTF8
 }
 
