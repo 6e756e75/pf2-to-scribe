@@ -9,97 +9,99 @@ function DownloadActions {
     $filePath = "$DIR_DATAS/$FILE_ACTIONS"
 
     if ((Test-Path -Path $filePath) -and ((Get-Item -Path $filePath).LastWriteTime -ge (Get-Date).AddHours(-1))){
-        Write-Output (Get-Content -Path $filePath -Raw -Encoding UTF8)
-    } else {
-        $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/actions.json" `
+        return (Get-Content -Path $filePath -Raw -Encoding UTF8)
+    }
+    
+    $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/actions.json" `
         -Headers @{
-        "Accept" = "application/json, text/plain, */*"
-          "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
-          "Accept-Encoding" = "gzip, deflate, br, zstd"
-          "Referer" = "https://pf2e.pathfinder-fr.org/"
-          "Sec-Fetch-Dest" = "empty"
-          "Sec-Fetch-Mode" = "cors"
-          "Sec-Fetch-Site" = "same-origin"
+            "Accept" = "application/json, text/plain, */*"
+            "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
+            "Accept-Encoding" = "gzip, deflate, br, zstd"
+            "Referer" = "https://pf2e.pathfinder-fr.org/"
+            "Sec-Fetch-Dest" = "empty"
+            "Sec-Fetch-Mode" = "cors"
+            "Sec-Fetch-Site" = "same-origin"
         }
 
-        $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
-        Set-Content -Path $filePath -Value $datas -Encoding UTF8
-        Write-Output $datas
-    }
+    $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
+    Set-Content -Path $filePath -Value $datas -Encoding UTF8
+    return $datas
 }
 
 function DownloadDons {
     $filePath = "$DIR_DATAS/$FILE_DONS"
 
     if ((Test-Path -Path $filePath) -and ((Get-Item -Path $filePath).LastWriteTime -ge (Get-Date).AddHours(-1))){
-        Write-Output (Get-Content -Path $filePath -Raw -Encoding UTF8)
-    } else {
-        $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/feats.json" `
-        -Headers @{
-        "Accept" = "application/json, text/plain, */*"
-          "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
-          "Accept-Encoding" = "gzip, deflate, br, zstd"
-          "Referer" = "https://pf2e.pathfinder-fr.org/all-feats"
-          "Sec-Fetch-Dest" = "empty"
-          "Sec-Fetch-Mode" = "cors"
-          "Sec-Fetch-Site" = "same-origin"
-        }
-
-        $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
-        Set-Content -Path $filePath -Value $datas -Encoding UTF8
-        Write-Output $datas
+        return (Get-Content -Path $filePath -Raw -Encoding UTF8)
     }
+
+    $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/feats.json" `
+    -Headers @{
+    "Accept" = "application/json, text/plain, */*"
+        "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
+        "Accept-Encoding" = "gzip, deflate, br, zstd"
+        "Referer" = "https://pf2e.pathfinder-fr.org/all-feats"
+        "Sec-Fetch-Dest" = "empty"
+        "Sec-Fetch-Mode" = "cors"
+        "Sec-Fetch-Site" = "same-origin"
+    }
+
+    $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
+    Set-Content -Path $filePath -Value $datas -Encoding UTF8
+    return $datas
 }
 
 function DownloadSpells {
     $filePath = "$DIR_DATAS/$FILE_SORTS"
 
     if ((Test-Path -Path $filePath) -and ((Get-Item -Path $filePath).LastWriteTime -ge (Get-Date).AddHours(-1))){
-        Write-Output (Get-Content -Path $filePath -Raw -Encoding UTF8)
-    } else {
-        $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/spells.json" `
-        -Headers @{
-        "Accept" = "application/json, text/plain, */*"
-          "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
-          "Accept-Encoding" = "gzip, deflate, br, zstd"
-          "Referer" = "https://pf2e.pathfinder-fr.org/spells"
-          "Sec-Fetch-Dest" = "empty"
-          "Sec-Fetch-Mode" = "cors"
-          "Sec-Fetch-Site" = "same-origin"
-        }
-
-        $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
-        Set-Content -Path $filePath -Value $datas -Encoding UTF8
-        Write-Output $datas
+        return (Get-Content -Path $filePath -Raw -Encoding UTF8)
     }
+
+    $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/spells.json" `
+    -Headers @{
+    "Accept" = "application/json, text/plain, */*"
+        "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
+        "Accept-Encoding" = "gzip, deflate, br, zstd"
+        "Referer" = "https://pf2e.pathfinder-fr.org/spells"
+        "Sec-Fetch-Dest" = "empty"
+        "Sec-Fetch-Mode" = "cors"
+        "Sec-Fetch-Site" = "same-origin"
+    }
+
+    $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
+    Set-Content -Path $filePath -Value $datas -Encoding UTF8
+    return $datas
 }
 
 function DownloadTraits {
     $filePath = "$DIR_DATAS/$FILE_TRAITS"
 
     if ((Test-Path -Path $filePath) -and ((Get-Item -Path $filePath).LastWriteTime -ge (Get-Date).AddHours(-1))){
-        Write-Output (Get-Content -Path $filePath -Raw -Encoding UTF8)
-    } else {
-        $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/traits.json" `
-        -UserAgent "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0" `
-        -Headers @{
-        "Accept" = "application/json, text/plain, */*"
-          "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
-          "Accept-Encoding" = "gzip, deflate, br, zstd"
-          "Referer" = "https://pf2e.pathfinder-fr.org/traits"
-          "Sec-Fetch-Dest" = "empty"
-          "Sec-Fetch-Mode" = "cors"
-          "Sec-Fetch-Site" = "same-origin"
-        }
-
-        $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
-        Set-Content -Path $filePath -Value $datas -Encoding UTF8
-        Write-Output $datas
+        return (Get-Content -Path $filePath -Raw -Encoding UTF8)
     }
+
+    $rawDatas = Invoke-WebRequest -UseBasicParsing -Uri "https://pf2e.pathfinder-fr.org/assets/data/traits.json" `
+    -Headers @{
+    "Accept" = "application/json, text/plain, */*"
+        "Accept-Language" = "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
+        "Accept-Encoding" = "gzip, deflate, br, zstd"
+        "Referer" = "https://pf2e.pathfinder-fr.org/traits"
+        "Sec-Fetch-Dest" = "empty"
+        "Sec-Fetch-Mode" = "cors"
+        "Sec-Fetch-Site" = "same-origin"
+    }
+
+    $datas = [Text.Encoding]::UTF8.GetString($rawDatas.RawContentStream.ToArray())
+    Set-Content -Path $filePath -Value $datas -Encoding UTF8
+    return $datas
 }
 
 function GetActionIcon {
-    param($NombreActions)
+    param(
+        [int]
+        $NombreActions
+    )
 
     switch ($NombreActions) {
         1 { return ":a:" }
@@ -114,11 +116,12 @@ function ParseActionIcon{
 
     switch ($Action.actionType) {
         "action" {
-            Write-Output "$(GetActionIcon([int]$Action.actions))"
+            return "$(GetActionIcon([int]$Action.actions))"
         }
-        "reaction" { Write-Output ":r:" }
-        "free" { Write-Output ":f:" }
-        "passive" { Write-Output "" }
+        "reaction" { return ":r:" }
+        "free" { return ":f:" }
+        "passive" { return "" }
+        Default { return "" }
     }
 }
 
@@ -126,10 +129,10 @@ function GetSpellIcon{
     param($Spell)
 
     switch ($Spell.time) {
-        "1" { Write-Output ":a:" }
-        "2" { Write-Output ":aa:" }
-        "3" { Write-Output ":aaa:" }
-        Default { Write-Output "" }
+        "1" { return ":a:" }
+        "2" { return ":aa:" }
+        "3" { return ":aaa:" }
+        Default { return "" }
     }
 }
 
@@ -143,11 +146,10 @@ function GetTraductionTraits{
     $item = $traits | Select-Object -ExpandProperty $Trait -ErrorAction SilentlyContinue
 
     if ($item){
-        Write-Output $item.translations.fr.name
-        return
+        return $item.translations.fr.name
     }
 
-    Write-Output $Trait
+    return $Trait
 }
 
 function GetTraits {
@@ -165,10 +167,10 @@ function GetTraits {
     }
 
     if ($outputTraits.Length -eq 0){
-        Write-Output ""
-    } else {
-        Write-Output ($outputTraits -join ", ")
+        return "";
     }
+    
+    return ($outputTraits -join ", ")
 }
 
 function ParseCheck{
@@ -180,7 +182,7 @@ function ParseCheck{
 
     # Impossible de déterminer le type => on sort
     if ($CheckAttribute.Contains(":") -and -not ($CheckAttribute -match "(?<=type:)(\w+)")){
-        return
+        return ""
     }
 
     $out = ""
@@ -217,7 +219,7 @@ function ParseCheck{
         }
     }
 
-    Write-Output $out
+    return $out
 }
 
 function GetDescription{
@@ -260,7 +262,7 @@ function GetDescription{
         $Description = $Description.Replace($Matches[0], "")
     }
 
-    Write-Output $Description
+    return $Description
 }
 
 function GetIncantationTime {
@@ -296,15 +298,14 @@ function GetIncantationTime {
         $out += " ($($components -join ", "))"
     }
 
-    Write-Output $out
+    return $out
 }
 
 function GetTranslatedProperties {
     param($item)
 
     if (-not $item.translations.fr){
-        Write-Output ""
-        return
+        return ""
     }
 
     $str = ""
@@ -337,18 +338,17 @@ function GetTranslatedProperties {
         }
     }
 
-    Write-Output $str
+    return $str
 }
 
 function GetSpellTypeName {
     param($spell)
 
     if ($spell.traits.value -contains "cantrip"){
-        Write-Output "Tour de magie"
-        return
+        return "Tour de magie"
     }
 
-    Write-Output "Sort"
+    return "Sort"
 }
 
 function FormatActionsToScribe{
@@ -372,7 +372,7 @@ function FormatActionsToScribe{
         $str += ")`r`n"
     }
     
-    Write-Output $str
+    return $str
 }
 
 function FormatDonsToScribe {
@@ -410,7 +410,7 @@ function FormatDonsToScribe {
         $str += ")`r`n"
     }
 
-    Write-Output $str
+    return $str
 }
 
 function FormatSpellsToScribe{
@@ -444,7 +444,7 @@ function FormatSpellsToScribe{
         $str += ")`r`n"
     }
 
-    Write-Output $str
+    return $str
 }
 
 <# PUBLIC FUNCTION #>
