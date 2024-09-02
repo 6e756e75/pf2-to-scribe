@@ -505,7 +505,7 @@ function Get-Actions{
         }
     }
 
-    $actions = ($actions | Sort-Object -Property translations.fr.name)
+    $actions = ($actions | Where-Object { $_.translations.fr.name } | Sort-Object -Property translations.fr.name)
     Set-Content -Path $OutputFile -Value (FormatActionsToScribe($actions)) -Encoding UTF8
 }
 
