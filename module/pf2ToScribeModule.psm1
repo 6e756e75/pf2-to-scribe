@@ -260,34 +260,6 @@ function GetDescription{
         $Description = $Description.Replace($Matches[0], "")
     }
 
-    # Tout ce qui prend une forme textuelle est utilisé directement (@Damage[...]{Texte})
-    # $Description = $Description -replace "@[^{]+{([^}]+)}", '$1'
-    
-    # Les tests de compétences sont traduits
-    <#
-    while ($Description -match "@Check\[([^\]]+)]"){
-        $rawCheck = $Matches[0]
-        $propCheck = $Matches[1]
-    
-        $str = ""
-        # Isole le type du @Check
-        if ($propCheck -match "type:([^|]+)") {
-            switch ($Matches[1]) {
-                "reflex" { $str = "Réflexes" }
-            }
-        }
-    
-        # Isole si le jet est basique
-        if ($propCheck -match "basic:([^|]+)") {
-            switch ($Matches[1]) {
-                "true" { $str += " (basique)" }
-            }
-        }
-    
-        $Description = $Description.Replace($rawCheck, $str)
-    }
-    #>
-    
     Write-Output $Description
 }
 
