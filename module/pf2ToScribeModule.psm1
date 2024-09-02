@@ -1,8 +1,31 @@
-﻿$DIR_DATAS = "./datas"
+﻿<# FIELDS #>
+$DIR_DATAS = "./datas"
 $FILE_ACTIONS = "actions.json"
 $FILE_DONS = "dons.json"
 $FILE_SORTS = "sorts.json"
 $FILE_TRAITS = "traits.json"
+
+$ChecksTraduction = @{
+    "acrobatics" = "Acrobatie";
+    "arcana" = "Arcanes";
+    "crafting" = "Artisanat";
+    "athletics" = "Athlétisme";
+    "diplomacy" = "Diplomatie";
+    "discretion" = "Discrétion";
+    "deception" = "Duperie";
+    "intimidation" = "Intimidation";
+    "nature" = "Nature";
+    "occultism" = "Occultisme";
+    "religion" = "Religion";
+    "performance" = "Représentation";
+    "society" = "Société";
+    "survival" = "Survie";
+    "stealth" = "Vol";
+    "reflex" = "Réflexe";
+    "will" = "Volonté";
+    "fortitude" = "Vigueur";
+    "medicine" = "Médecine"
+}
 
 <# PRIVATE FUNCTIONS #>
 function DownloadActions {
@@ -180,46 +203,44 @@ function ParseCheck{
         $CheckAttribute
     )
 
-    # Impossible de déterminer le type => on sort
-    if ($CheckAttribute.Contains(":") -and -not ($CheckAttribute -match "(?<=type:)(\w+)")){
-        return ""
-    }
+    $type = ""
+    $isBasic = $false
+    $dd = 0
 
-    $out = ""
-    switch ($Matches[1]) {
-        "acrobatics" { $out = "Acrobatie" }
-        "arcana" { $out = "Arcanes" }
-        "crafting" { $out = "Artisanat" }
-        "athletics" { $out = "Athlétisme" }
-        "diplomacy" { $out = "Diplomatie" }
-        "discretion" { $out = "Discrétion" }
-        "deception" { $out = "Duperie" }
-        "intimidation" { $out = "Intimidation" }
-        "nature" { $out = "Nature" }
-        "occultism" { $out = "Occultisme" }
-        "religion" { $out = "Religion" }
-        "performance" { $out = "Représentation" }
-        "society" { $out = "Société" }
-        "survival" { $out = "Survie" }
-        "stealth" { $out = "Vol" }
-        "reflex" { $out = "Réflexe" }
-        "will" { $out = "Volonté" }
-        "fortitude" { $out = "Vigueur" }
-        Default { $out = $Matches[1] }
-    }
+    $CheckAttribute -split "\|" | ForEach-Object {
 
-    if ($CheckAttribute -match "(?<=basic:)true"){
-        $out += " basique"
-    }
+        if ($_ -match "(?<=basic:)true" -or $_ -eq "basic"){
+            $isBasic = $true
+            return
+        }
 
-    if ($CheckAttribute -match "(?<=dc:)(\d+)"){
-        $dc = [int]$Matches[1]
-        if ($dc -gt 0){
-            $out += " (DD $dc)"
+        if ($_ -match "(?<=dc:)(\d+)"){
+            $dc = [int]$Matches[1]
+            if ($dc -gt 0){
+                $dd = $dc
+                return
+            }
+        }
+
+        # Déclaration implicite du type
+        if (-not ($_ -like "*:*")){
+            $type = $ChecksTraduction[$_]
+            return
+        }
+
+        # Déclaration explicite du type
+        if ($_ -match "(?<=type:)(\w+)"){
+            $type = $CheckAttribute[$Matches[1]]
+            return
         }
     }
 
-    return $out
+    $out = "$type $(if($dd -gt 0) { "(DD $dd)" })"
+    if ($isBasic){
+        $out += " basique"
+    }
+
+    return ($out -replace "\s+", " ")
 }
 
 function GetDescription{
