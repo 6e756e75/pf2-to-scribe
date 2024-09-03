@@ -29,9 +29,15 @@ Une fois le module chargé via le script `Run.ps1`, les commandes sont disponibl
 
 ## Fonctionnalités
 ### Généralités
-Chaque commande expose le paramètre ci-dessous:
+Chaque commande expose les paramètres ci-dessous:
 
 - **OutputFile** (`-OutputFile <string>`) : le chemin vers le fichier dans lequel sera inscrit l'export. Exemple : `Get-Actions -OutputFile C:\Users\simon\Bureau\export.txt`
+
+- **Ids** (`-Ids <string[]>`) : Permet de chaîner des identifiants de dons pour exporter uniquement ceux-ci. Exemple : `Get-Dons -OutputFile ./out.txt -Ids B0T6p3kcrOfSvLqQ, oTTddwzF9TPNkMyd`
+
+Ces identifiants se trouvent :
+- soit dans l'url du détail du don : par exemple, pour l'url suivante "https://pf2e.pathfinder-fr.org/feats/pekKtubQTkG9m1xK" l'ID est `pekKtubQTkG9m1xK`;
+- soit dans l'id source sur Foundry (onglet "Règles" > ID source) : par exemple "Compendium.pf2e.feats-srd.Item.uW0VSyy75YrsvtWz", l'ID est `uW0VSyy75YrsvtWz`;
 
 ### Actions
 L'export des actions se fait via la commande suivante :
@@ -41,13 +47,6 @@ Get-Actions -OutputFile ./out.txt
 ```
 
 Par défaut, toutes les actions sont exportées si aucun filtre n'est spécifié.
-Les filtres possibles sont les suivants :
-
-- **Ids** (`-Ids <string[]>`) : Permet de chaîner des identifiants d'actions pour exporter uniquement celles-ci. Exemple : `Get-Actions -OutputFile ./out.txt -Ids 46pkhUrd57gTd4th, PZGE4lLJ8DHbGIUI`
-
-Ces identifiants se trouvent :
-- soit dans l'url du détail de l'action : par exemple, pour l'url suivante "https://pf2e.pathfinder-fr.org/actions/EHa0owz6mccnmSBf" l'ID est `EHa0owz6mccnmSBf`;
-- soit dans l'id source sur Foundry (onglet "Règles" > ID source) : par exemple "Compendium.pf2e.actionspf2e.Item.g8QrV39TmZfkbXgE", l'ID est `g8QrV39TmZfkbXgE`;
 
 ### Dons
 L'export des dons se fait via la commande suivante :
@@ -57,13 +56,15 @@ Get-Dons -OutputFile ./out.txt
 ```
 
 Par défaut, tous les dons sont exportés si aucun filtre n'est spécifié.
-Les filtres possibles sont les suivants :
 
-- **Ids** (`-Ids <string[]>`) : Permet de chaîner des identifiants de dons pour exporter uniquement ceux-ci. Exemple : `Get-Dons -OutputFile ./out.txt -Ids B0T6p3kcrOfSvLqQ, oTTddwzF9TPNkMyd`
+### Sorts
+L'export des sorts se fait via la commande suivante :
 
-Ces identifiants se trouvent :
-- soit dans l'url du détail du don : par exemple, pour l'url suivante "https://pf2e.pathfinder-fr.org/feats/pekKtubQTkG9m1xK" l'ID est `pekKtubQTkG9m1xK`;
-- soit dans l'id source sur Foundry (onglet "Règles" > ID source) : par exemple "Compendium.pf2e.feats-srd.Item.uW0VSyy75YrsvtWz", l'ID est `uW0VSyy75YrsvtWz`;
+```posh
+Get-Sorts -OutputFile ./out.txt
+```
+
+Par défaut, tous les sorts sont exportés si aucun filtre n'est spécifié.
 
 ## Exemples
 Exporter les actions [Chercher](https://pf2e.pathfinder-fr.org/actions/BlAOM2X92SI6HMtJ) et [Aider](https://pf2e.pathfinder-fr.org/actions/HCl3pzVefiv9ZKQW) vers un fichier PJ_1.txt :
@@ -76,9 +77,13 @@ Exporter les dons [Assaut à deux mains](https://pf2e.pathfinder-fr.org/feats/HH
 Get-Dons -OutputFile C:\Users\utilisateur\Desktop\PJ_1.txt -Ids IMPP5pa8AmvCby4W, HHAGiBYVv8nyUEsd
 ```
 
+Exporter le sort [Abrutir](https://pf2e.pathfinder-fr.org/spells/CQb8HtQ1BPeZmu9h) vers un fichier PJ_1.txt : 
+```posh
+Get-Sorts -OutputFile C:\Users\utilisateur\Desktop\PJ_1.txt -Ids CQb8HtQ1BPeZmu9h
+```
+
 ## Roadmap
 Je ferai évoluer le module dans le temps, mais la liste des ajouts futurs (non exhaustif, non ordonnés) :
-- [ ] Ajouter l'export des sorts
 - [ ] Ajouter l'export de l'équipement
 - [ ] Ajouter différents filtres sur les exports (traits, nom, etc.)
 
