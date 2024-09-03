@@ -33,7 +33,7 @@ Chaque commande expose les paramètres ci-dessous:
 
 - **OutputFile** (`-OutputFile <string>`) : le chemin vers le fichier dans lequel sera inscrit l'export. Exemple : `Get-Actions -OutputFile C:\Users\simon\Bureau\export.txt`
 
-- **Ids** (`-Ids <string[]>`) : Permet de chaîner des identifiants de dons pour exporter uniquement ceux-ci. Exemple : `Get-Dons -OutputFile ./out.txt -Ids B0T6p3kcrOfSvLqQ, oTTddwzF9TPNkMyd`
+- **Ids** (`-Ids <string[]>`) : Permet de chaîner des identifiants (dons, sorts, etc.) pour exporter uniquement ceux-ci. Exemple : `Get-Dons -OutputFile ./out.txt -Ids B0T6p3kcrOfSvLqQ, oTTddwzF9TPNkMyd`
 
 Ces identifiants se trouvent :
 - soit dans l'url du détail du don : par exemple, pour l'url suivante "https://pf2e.pathfinder-fr.org/feats/pekKtubQTkG9m1xK" l'ID est `pekKtubQTkG9m1xK`;
