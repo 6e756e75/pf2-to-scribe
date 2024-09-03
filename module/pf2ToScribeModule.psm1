@@ -149,14 +149,25 @@ function ParseActionIcon{
 }
 
 function GetSpellIcon{
-    param($Spell)
+    param($time)
 
-    switch ($Spell.time) {
-        "1" { return ":a:" }
-        "2" { return ":aa:" }
-        "3" { return ":aaa:" }
-        Default { return "" }
+    if ($time -match "^(\d)\sor\s(\d)$"){
+        return "$(GetSpellIcon($Matches[1])) ou $(GetSpellIcon($Matches[2]))"
     }
+
+    if ($time -match "^(\d)\sto\s(\d)$"){
+        return "$(GetSpellIcon($Matches[1])) à $(GetSpellIcon($Matches[2]))"
+    }
+
+    switch ($time) {
+        "1"         { return ":a:" }
+        "2"         { return ":aa:" }
+        "3"         { return ":aaa:" }
+        "free"      { return ":f:" }
+        "reaction"  { return ":r:" }
+    }
+
+    return ""
 }
 
 function GetTraductionTraits{
@@ -333,8 +344,8 @@ function GetTranslatedProperties {
     $item.translations.fr | Get-Member -MemberType NoteProperty | ForEach-Object {
         switch ($_.Name) {
             "prerequisites" { $str += "**Prérequis** $(($item.translations.fr.prerequisites -join ", "))`r`n`r`n" }
-            "time" { $str += "**Incantation** $(GetIncantationTime($item))`r`n`r`n" }
-            "secondarycasters" { $str += "**Incantateurs secondaires** $($item.translations.fr.secondarycasters)`r`n`r`n" }
+            "time" { $str += "**Temps d'incantation** $(GetIncantationTime($item))`r`n`r`n" }
+            "secondarycasters" { if ($item.translations.fr.secondarycasters -ne "0") { $item.translations.fr.secondarycasters } }
             "materials" { $str += "**Condition** $($item.translations.fr.materials)`r`n`r`n" }
             "primarycheck" {
                 $str += "**Test principal** $($item.translations.fr.primarycheck)"
@@ -345,7 +356,7 @@ function GetTranslatedProperties {
                     $str += "`r`n`r`n"
                 }
             }
-            "secondarycheck" {  }
+            "secondaryChecks" {  }
             "range" { $str += "**Portée** $($item.translations.fr.range)`r`n`r`n" }
             "areadetails" { $str += "**Zone** $($item.translations.fr.areadetails)`r`n`r`n" }
             "cost" { $str += "**Coût** $($item.translations.fr.cost)`r`n`r`n" }
@@ -359,6 +370,10 @@ function GetTranslatedProperties {
         }
     }
 
+    if ($item.defense.save) {
+        $str += "**Défense** $($ChecksTraduction[$item.defense.save.statistic]) $(if($item.defense.save.basic -eq "True") { "(basique)" })`r`n`r`n"
+    }
+
     return $str
 }
 
@@ -367,6 +382,14 @@ function GetSpellTypeName {
 
     if ($spell.traits.value -contains "cantrip"){
         return "Tour de magie"
+    } 
+    
+    if ($spell.traits.value -contains "focus"){
+        return "Focalisé"
+    } 
+    
+    if ($spell.ritual){
+        return "Rituel"
     }
 
     return "Sort"
@@ -446,7 +469,7 @@ function FormatSpellsToScribe{
         }
     
         $str += "item(`r`n"
-        $str += "# $($s.translations.fr.name) $(GetSpellIcon($s))`r`n"
+        $str += "# $($s.translations.fr.name) $(GetSpellIcon($s.time))`r`n"
         $str += "## $(GetSpellTypeName($s)) $($s.level)`r`n"
         $str += "-`r`n"
 
@@ -544,15 +567,31 @@ function Get-Dons {
     Set-Content -Path $OutputFile -Value (FormatDonsToScribe($dons)) -Encoding UTF8
 }
 
-function Get-Spells {
+<#
+.SYNOPSIS
+    Exporte une ou plusieurs sorts.
+.DESCRIPTION
+    Cette commande exporte un ou plusieurs sorts vers un fichier de sortie pour être utilisé sur https://scribe.pf2.tools/.
+.PARAMETER OutputFile
+    Il s'agit du fichier qui contiendra les données formatées pour pf2 scribe tools.
+.PARAMETER Ids
+    Permet de chaîner des identifiants de sorts pour exporter uniquement ceux-ci.
+.EXAMPLE
+    C:\PS> Get-Sorts -OutputFile ./out.txt -Ids c8R2fpk88fBwJ1ie
+.NOTES
+    https://github.com/6e756e75/pf2-to-scribe
+#>
+function Get-Sorts {
+    [CmdletBinding()]
     param(
+        [Parameter(Position = 0, Mandatory = $true, HelpMessage = "Il s'agit du fichier qui contiendra les données formattés pour pf2 scribe tools.")]
         [string]
         $OutputFile,
 
         [string[]]
         $Ids
     )
-
+    
     $spells = (DownloadSpells | ConvertFrom-Json)
 
     # Filtre par ID
@@ -563,10 +602,10 @@ function Get-Spells {
         }
     }
 
-    $spells = ($spells | Sort-Object -Property level, translations.fr.name)
+    $spells = ($spells | Where-Object { $_.translations.fr.name } | Sort-Object -Property level, translations.fr.name)
     Set-Content -Path $OutputFile -Value (FormatSpellsToScribe($spells)) -Encoding UTF8
 }
 
 Export-ModuleMember -Function Get-Actions
 Export-ModuleMember -Function Get-Dons
-# Export-ModuleMember -Function Get-Spells
+Export-ModuleMember -Function Get-Sorts
