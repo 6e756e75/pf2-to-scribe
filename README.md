@@ -5,6 +5,15 @@
 Ce module PowerShell permet d'exporter les données issues du site https://pf2e.pathfinder-fr.org vers le format supporté par https://scribe.pf2.tools. Il est né d'un besoin d'imprimer les éléments techniques des personnages (dons, sorts, actions, etc.) de mes joueurs pour qu'ils puissent facilement s'y référer.
 
 ## Installation
+
+### Automatique
+Exécuter la commande suivante dans un terminal PowerShell :
+``` posh
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/6e756e75/pf2-to-scribe/main/Init.ps1'))
+```
+
+### Manuelle
+
 1. Télécharger l'archive zip du projet depuis GitHub (Code > Download zip);
 2. Extraire ensuite ce zip dans un répertoire dedié;
 3. Entrer dans ce répertoire;
