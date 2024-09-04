@@ -7,7 +7,7 @@ Ce module PowerShell permet d'exporter les données issues du site https://pf2e.
 ## Installation
 
 ### Automatique
-Exécuter la commande suivante dans un terminal PowerShell :
+Exécuter la commande suivante dans un terminal PowerShell après s'être placé au préalable dans un répertoire dedié :
 ``` posh
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/6e756e75/pf2-to-scribe/main/Init.ps1'))
 ```
